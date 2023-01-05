@@ -10,8 +10,7 @@ COPY . .
 RUN npm run build
 
 FROM nginx:latest
-RUN rm -rf /etc/nginx/conf.d
-COPY conf/default.conf /etc/nginx/nginx.conf
+#COPY conf/default.conf /etc/nginx/nginx.conf
 EXPOSE 80
 COPY --from=builder /app/build /usr/share/nginx/html
 
