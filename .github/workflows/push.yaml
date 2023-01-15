@@ -19,7 +19,8 @@ jobs:
         with:
           username: ${{ env.LOGIN }}
           password: ${{ env.PASSWORD }}
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@master
       - name: Build image
         run: docker build -t "${{ env.LOGIN }}/${{ env.NAME }}:1" -f Dockerfile .
       - name: Push image to docker.io
