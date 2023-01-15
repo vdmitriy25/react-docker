@@ -21,6 +21,6 @@ jobs:
           password: ${{ env.PASSWORD }}
       - uses: actions/checkout@master
       - name: Build image
-        run: docker build -t "$LOGIN/$NAME:$GITHUB_REF:11" -f Dockerfile .
+        run: docker build -t "${{ env.LOGIN }}/${{ env.NAME }}:$TAG" -f Dockerfile .
       - name: Push image to docker.io
-        run: docker push "${{ env.LOGIN }}/${{ env.NAME }}:${GITHUB_REF:11}"
+        run: docker push "${{ env.LOGIN }}/${{ env.NAME }}:$TAG"
