@@ -1,0 +1,14 @@
+on:
+  push:
+    branches:
+      - '*'
+jobs:
+  run_tests:
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build image
+        run: docker build -t test_image -f Dockerfile.dev .
+      - name: run tests
+        run: docker run -e CI=true test_image npm run test -- --coverage
