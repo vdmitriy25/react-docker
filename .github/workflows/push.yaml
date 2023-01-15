@@ -35,6 +35,10 @@ jobs:
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
 
+      - name: Generate version name
+        id: version
+        run: echo "TAG_NAME=$(date +%s%N)" >> $GITHUB_OUTPUT
+
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
@@ -43,6 +47,6 @@ jobs:
           application_name: docker-react-2
           environment_name: Dockerreact2-env
           existing_bucket_name: elasticbeanstalk-us-east-1-040625511858
-          version_label: $(date +%s%N)
+          version_label: ${{ steps.version.outputs.TAG_NAME }}
           region: us-east-1
           deployment_package: deploy.zip
